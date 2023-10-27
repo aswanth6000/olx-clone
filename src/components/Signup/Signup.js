@@ -14,6 +14,7 @@ export default function Signup() {
   const [error, setError] = useState('')
   const {firebase} = useContext(firebaseContext)
   const auth = firebase.getAuth();
+  let uid = 0
   const handleSubmit= (e) =>{
     e.preventDefault();
     firebase.createUserWithEmailAndPassword(auth, email, password)
@@ -21,9 +22,11 @@ export default function Signup() {
     const user = userCredential.user;
     user.displayName = name;
     user.phoneNumber = phone;
+    uid = user.uid
     console.log("dddddddddd",user);
   }).then(async ()=>{
     const docRef = await firebase.addDoc(firebase.collection(firebase.db, "users"), {
+      id : uid,
       username : name,
       phone : phone,
       email : email
@@ -31,7 +34,7 @@ export default function Signup() {
     console.log("Document written with ID: ", docRef.id);
   })
   .then(()=>{
-    navigate("/login")
+    navigate("/")
   })
   .catch((error) => {
     const errorCode = error.code;

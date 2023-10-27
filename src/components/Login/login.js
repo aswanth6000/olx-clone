@@ -15,8 +15,6 @@ function Login() {
     e.preventDefault();
     firebase.signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    const user = userCredential.user;
-    console.log(user);
   })
   .then(()=>{
     navigate('/home')

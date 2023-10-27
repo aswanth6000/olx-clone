@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { firebaseContext } from './store/firebaseContext';
 import {firebase} from './Firebase/config'
+import Context from './store/firebaseContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <firebaseContext.Provider value={{firebase}}>
+    <Context>
     <App />
+    </Context>
   </firebaseContext.Provider>
 );
 
