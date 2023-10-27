@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Logo from '../../assets/Images/olx-logo.png';
+import {useNavigate} from 'react-router-dom'
+import { firebaseContext } from '../../store/firebaseContext';
 import './signup.scss';
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [name, setName ] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] =useState('')
+  const {firebase} = useContext(firebaseContext)
+  const auth = firebase.getAuth();
   const handleSubmit= (e) =>{
     e.preventDefault();
-    console.log(name);
+    firebase.createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    user.displayName = name;
+    user.phoneNumber = phone;
+    console.log("dddddddddd",user);
+  }).then(async ()=>{
+    const docRef = await firebase.addDoc(firebase.collection(firebase.db, "users"), {
+      username : name,
+      phone : phone,
+      email : email
+    });
+    console.log("Document written with ID: ", docRef.id);
+  })
+  .then(()=>{
+    navigate("/login")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode,"Message:", errorMessage);
+    // ..
+  });
   }
   return (
     <div>
