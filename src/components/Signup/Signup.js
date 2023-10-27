@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Logo from '../../olx-logo.png';
+import Logo from '../../assets/Images/olx-logo.png';
 import './signup.scss';
 
 export default function Signup() {
+  const [name, setName ] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] =useState('')
+  const handleSubmit= (e) =>{
+    e.preventDefault();
+    console.log(name);
+  }
   return (
     <div>
       <div className="signupParentDiv">
         <img width="200px" height="200px" src={Logo} alt='logo'></img>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Username</label>
           <br />
           <input
@@ -17,6 +25,8 @@ export default function Signup() {
             id="fname"
             name="name"
             defaultValue="John"
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
           />
           <br />
           <label htmlFor="fname">Email</label>
@@ -27,6 +37,8 @@ export default function Signup() {
             id="fname"
             name="email"
             defaultValue="John"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br />
           <label htmlFor="lname">Phone</label>
@@ -37,6 +49,8 @@ export default function Signup() {
             id="lname"
             name="phone"
             defaultValue="Doe"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <br />
           <label htmlFor="lname">Password</label>
@@ -47,6 +61,8 @@ export default function Signup() {
             id="lname"
             name="password"
             defaultValue="Doe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <br />
           <br />
