@@ -11,6 +11,7 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] =useState('')
+  const [error, setError] = useState('')
   const {firebase} = useContext(firebaseContext)
   const auth = firebase.getAuth();
   const handleSubmit= (e) =>{
@@ -35,8 +36,11 @@ export default function Signup() {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    const errorMessageArray = errorMessage.split(' ');
+    errorMessageArray.shift();
+    const errorMessageOnly = errorMessageArray.join(' ');
+    setError(errorMessageOnly)
     console.log(errorCode,"Message:", errorMessage);
-    // ..
   });
   }
   return (
@@ -51,7 +55,6 @@ export default function Signup() {
             type="text"
             id="fname"
             name="name"
-            defaultValue="John"
             value={name}
             onChange={(e)=>setName(e.target.value)}
           />
@@ -63,7 +66,6 @@ export default function Signup() {
             type="email"
             id="fname"
             name="email"
-            defaultValue="John"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -75,7 +77,6 @@ export default function Signup() {
             type="number"
             id="lname"
             name="phone"
-            defaultValue="Doe"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -87,12 +88,12 @@ export default function Signup() {
             type="password"
             id="lname"
             name="password"
-            defaultValue="Doe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
           <br />
+          <p style={{color: "red"}}>{error ? error : ''}</p>
           <button>Signup</button>
         </form>
         <a href='/'>Login</a>
