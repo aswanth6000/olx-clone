@@ -49,7 +49,7 @@ firebase.signOut(auth).then(() => {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{userd.username ? `welcome ${userd.username}` : 'Login'}</span>
+          <span>{userd ? `welcome ${userd.username}` : 'Login'}</span>
           <hr />
         </div>
         <div className="loginPage">
@@ -62,7 +62,7 @@ firebase.signOut(auth).then(() => {
           <Sellbutton></Sellbutton>
           <div className="sellMenuContent">
           <SellbuttonPlus></SellbuttonPlus>
-            <span>SELL</span>
+            <a href='/create'><span>SELL</span></a>
           </div>
         </div>
       </div>
