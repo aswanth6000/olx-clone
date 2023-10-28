@@ -10,10 +10,25 @@ function App() {
   const {firebase} = useContext(firebaseContext)
   const auth = firebase.getAuth();
   useEffect(()=>{
-    firebase.onAuthStateChanged(auth, (user) => {
+    firebase.onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setUserd(user)
-        console.log("eeeeeeeeeee",userd);
+        console.log('ssssssssss', user.uid);
+        const q = firebase.query(
+          firebase.collection(firebase.db, 'users'),
+          firebase.where('id', '==', user.uid)
+        );
+
+        const querySnapshot = await firebase.getDocs(q);
+
+        // Wait for the query to complete before logging the data to the console
+        await querySnapshot.forEach(async (doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          await  setUserd(doc.data());
+          console.log("dddddd",userd.username, "jjjjjjj", userd.phone);
+        });
+
+       
+        
       } else {
         // User is signed out
         // ...

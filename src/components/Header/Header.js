@@ -10,7 +10,7 @@ import Sellbutton from '../../assets/Sellbutton';
 import SellbuttonPlus from '../../assets/SellbuttonPlus'
 import Arrow from '../../assets/Arrow';
 function Header() {
-  const userd = useContext(AuthContext);
+  const {userd} = useContext(AuthContext);
   const firebase = useContext(firebaseContext)
   return (
     <div className="headerParentDiv">
@@ -39,7 +39,7 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{userd ? `welcome ${userd.displayName}` : 'Login'}</span>
+          <span>{userd ? `welcome ${userd.username}` : 'Login'}</span>
           <hr />
         </div>
 
