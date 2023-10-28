@@ -6,6 +6,8 @@ import Create from './pages/Create'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { AuthContext, firebaseContext } from './store/firebaseContext';
+import Post from './store/postConstext';
+import View from './pages/ViewPost';
 function App() {
   const {setUserd} = useContext(AuthContext)
   const {firebase} = useContext(firebaseContext)
@@ -36,14 +38,17 @@ function App() {
   })
   return (
     <div className="App">
+      <Post>
       <Router>
         <Routes>
         <Route exact path='/' element={<Login/>}></Route>
         <Route  path='/home' element={<Home/>}></Route>
         <Route path='/signup' element={<Signup/>}></Route>
         <Route path='/create' element={<Create/>}></Route>
+        <Route path='/view' element={<View/>}></Route>
         </Routes>
       </Router>
+      </Post>
     </div>
   );
 }

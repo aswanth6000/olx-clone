@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Header from '../components/Header/Header'
-import View from '../Components/View/View'
+import View from '../components/View/View'
 
 function ViewPost(props) {
     return (

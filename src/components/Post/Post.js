@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { firebaseContext } from "../../store/firebaseContext";
 import Heart from "../../assets/Heart";
 import "./post.scss";
+import { PostContext } from "../../store/postConstext";
+import { useNavigate } from "react-router-dom";
 
 function Posts() {
   const { firebase } = useContext(firebaseContext);
+  const navigation = useNavigate()
+  const {setPostDetails} = useContext(PostContext)
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +43,10 @@ function Posts() {
         </div>
   <div className="cards">
         {products.map((product) => (
-    <div className="card" key={product.id}>
+    <div className="card" onClick={()=>{
+      setPostDetails(product)
+      navigation('/view')
+    }} key={product.id}>
       <div className="favorite">
         <Heart></Heart>
       </div>
