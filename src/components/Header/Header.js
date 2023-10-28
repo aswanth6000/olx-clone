@@ -9,9 +9,19 @@ import { AuthContext, firebaseContext } from '../../store/firebaseContext';
 import Sellbutton from '../../assets/Sellbutton';
 import SellbuttonPlus from '../../assets/SellbuttonPlus'
 import Arrow from '../../assets/Arrow';
+import { useNavigate } from 'react-router-dom';
 function Header() {
   const {userd} = useContext(AuthContext);
-  const firebase = useContext(firebaseContext)
+  const {firebase} = useContext(firebaseContext);
+  const auth = firebase.getAuth();
+  const navigate = useNavigate()
+  const handleLogOut = () =>{
+firebase.signOut(auth).then(() => {
+  navigate("/")
+}).catch((error) => {
+  console.log("rrrr",error.message);
+});
+  }
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -39,10 +49,15 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{userd ? `welcome ${userd.username}` : 'Login'}</span>
+          <span>{userd.username ? `welcome ${userd.username}` : 'Login'}</span>
           <hr />
         </div>
-
+        <div className="loginPage">
+        {userd && <span onClick={handleLogOut} style={{cursor:"pointer"}}>Logout</span>}
+          <hr />
+        </div>
+        
+      
         <div className="sellMenu">
           <Sellbutton></Sellbutton>
           <div className="sellMenuContent">

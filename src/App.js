@@ -6,13 +6,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { AuthContext, firebaseContext } from './store/firebaseContext';
 function App() {
-  const {userd,setUserd} = useContext(AuthContext)
+  const {setUserd} = useContext(AuthContext)
   const {firebase} = useContext(firebaseContext)
   const auth = firebase.getAuth();
   useEffect(()=>{
     firebase.onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log('ssssssssss', user.uid);
         const q = firebase.query(
           firebase.collection(firebase.db, 'users'),
           firebase.where('id', '==', user.uid)
@@ -24,7 +23,6 @@ function App() {
         await querySnapshot.forEach(async (doc) => {
           // doc.data() is never undefined for query doc snapshots
           await  setUserd(doc.data());
-          console.log("dddddd",userd.username, "jjjjjjj", userd.phone);
         });
 
        
