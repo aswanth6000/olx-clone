@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import './header.scss';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
@@ -10,6 +9,7 @@ import Sellbutton from '../../assets/Sellbutton';
 import SellbuttonPlus from '../../assets/SellbuttonPlus'
 import Arrow from '../../assets/Arrow';
 import { useNavigate } from 'react-router-dom';
+
 function Header() {
   const {userd} = useContext(AuthContext);
   const {firebase} = useContext(firebaseContext);

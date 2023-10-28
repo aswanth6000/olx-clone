@@ -11,6 +11,7 @@ const Create = () => {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('')
   const [image, setImage] = useState('')
+  const date = new Date()
   const storage = firebase.getStorage();
   const navigate = useNavigate()
   const handleSubmit = () =>{
@@ -26,7 +27,8 @@ const Create = () => {
         category,
         price,
         url : downloadURL,
-        userId : userd.id
+        userId : userd.id,
+        createdDate : date.toDateString()
       });
       console.log("Document written with ID: ", docRef.id);
       navigate('/home')
